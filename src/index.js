@@ -51,3 +51,29 @@ function renderCharacters(charArr) {
     POST REQUEST
 ----------------------------------------------------- */
 
+const form = document.querySelector('form')
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    const newCharObj = {
+        name: e.target.name.value,
+        image: e.target.image.value,
+        age: e.target.age.value
+    }
+
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            Accept : 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newCharObj)
+    })
+    .then((resp) => resp.json())
+    .then((data) => {
+        renderCharacters([data])
+    })
+})
+
